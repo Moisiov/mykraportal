@@ -1,12 +1,12 @@
-version: '3.8'
+version: '3.9'
 services:
   db:
     image: postgres
     restart: always
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-    ports:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:  
       - '5432:5432'
     volumes:
       - db:/var/lib/postgresql/data
@@ -14,10 +14,11 @@ services:
     build:
       dockerfile: Dockerfile
       context: ./backend
-    command: npm run start:dev
+    command: npm run start
     volumes:
      - backend:/app
-    ports: '5000:3000'
+    ports:
+      - '5000:5000'
     environment:
       DB_HOST: db
       DB_USER: postgres
