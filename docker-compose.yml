@@ -3,19 +3,16 @@ services:
   db:
     image: postgres
     environment:
+      POSTGRES_DB: main
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:  
       - '5432:5432'
-    volumes:
-      - db:/var/lib/postgresql/data
   backend:
     build:
       dockerfile: Dockerfile
       context: ./backend
     command: npm run start
-    volumes:
-     - backend:/app
     ports:
       - '5000:5000'
     environment:
@@ -30,8 +27,6 @@ services:
       dockerfile: Dockerfile
       context: ./frontend
     command: npm run start
-    volumes:
-      - frontend:/app
     ports:
       - '3000:3000'
     depends_on:
